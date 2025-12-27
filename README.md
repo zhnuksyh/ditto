@@ -2,6 +2,15 @@
 
 A beautiful, thematic memory matching game built with React, Vite, and Tailwind CSS. Test your memory across different worlds with unique visual styles and vocabularies.
 
+## 🔄 Project Status
+<!-- START_SECTION:status -->
+
+| 📅 Last Updated | 🏷️ Version | 🔨 Latest Commit |
+| :--- | :--- | :--- |
+| Sat, 27 Dec 2025 08:24:51 GMT | v0.1.0 | [`cce0b38`](https://github.com/zhnuksyh/ditto/commit/cce0b38) - Add README with game details |
+
+<!-- END_SECTION:status -->
+
 ## 🎮 Play Now
 
 [**Live Demo**](https://zhnuksyh.github.io/ditto/)

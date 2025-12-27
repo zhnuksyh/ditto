@@ -27,7 +27,8 @@ const ThematicBackground = ({ currentTheme }) => {
                 <div
                     key={p.id}
                     className={`absolute ${currentTheme.animation === 'float' ? 'animate-float' :
-                            currentTheme.animation === 'fall' ? 'animate-fall' :
+                        currentTheme.animation === 'fall' ? 'animate-fall' :
+                            currentTheme.animation === 'snow' ? 'animate-snow' :
                                 'animate-matrix'
                         }`}
                     style={{
@@ -38,9 +39,9 @@ const ThematicBackground = ({ currentTheme }) => {
                         color: currentTheme.colors ? 'currentColor' : undefined // Use currentColor if needed or theme text color
                     }}
                 >
-                    {/* We use the theme accent color for the icons */}
+                    {/* We use the theme accent color for the icons, but white for snow */}
                     <p.Icon
-                        className={currentTheme.accent}
+                        className={currentTheme.animation === 'snow' ? 'text-white' : currentTheme.accent}
                         style={{
                             width: `${p.size}px`,
                             height: `${p.size}px`,

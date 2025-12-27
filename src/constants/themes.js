@@ -1,14 +1,18 @@
 import {
     Ghost, Heart, Star, Moon, Sun, Cloud, Snowflake, Zap,
     Leaf, Flower, Trees, Mountain, Droplets, Wind,
-    Cpu, Disc, Radio, Wifi, Battery, Monitor, Gamepad2
+    Cpu, Disc, Radio, Wifi, Battery, Monitor, Gamepad2,
+    Gift, Bell // Added holiday icons
 } from 'lucide-react';
 
 export const THEMES = {
     space: {
         name: "Cosmic",
+        description: "Zero-gravity visual effects",
+        type: "dark",
         bg: "bg-indigo-950",
         cardBack: "bg-indigo-800 border-indigo-700",
+        outline: "border-indigo-500",
         accent: "text-indigo-300",
         button: "bg-indigo-500 hover:bg-indigo-600 text-white",
         icons: [Ghost, Moon, Star, Sun, Cloud, Snowflake, Zap, Heart],
@@ -23,8 +27,11 @@ export const THEMES = {
     },
     nature: {
         name: "Forest",
+        description: "Peaceful forest atmosphere",
+        type: "light",
         bg: "bg-lime-50",
         cardBack: "bg-emerald-600 border-emerald-700",
+        outline: "border-emerald-500",
         accent: "text-emerald-600",
         button: "bg-emerald-500 hover:bg-emerald-600 text-white",
         icons: [Leaf, Flower, Trees, Mountain, Droplets, Wind, Sun, Cloud],
@@ -37,20 +44,24 @@ export const THEMES = {
         },
         animation: "fall" // Falling leaves
     },
-    cyber: {
-        name: "Neon",
-        bg: "bg-violet-900",
-        cardBack: "bg-fuchsia-800 border-fuchsia-600",
-        accent: "text-fuchsia-300",
-        button: "bg-fuchsia-500 hover:bg-fuchsia-400 text-white shadow-[0_0_15px_rgba(192,38,211,0.5)]",
-        icons: [Cpu, Disc, Radio, Wifi, Battery, Monitor, Zap, Gamepad2],
-        colors: ["text-fuchsia-300", "text-cyan-300", "text-yellow-300", "text-pink-300"],
+    christmas: {
+        name: "Christmas",
+        description: "Festive holiday spirit",
+        type: "light",
+        isSpecial: true,
+        bg: "bg-red-50",
+        cardBack: "bg-red-600 border-red-700",
+        outline: "border-transparent",
+        accent: "text-red-600",
+        button: "bg-red-600 hover:bg-red-700 text-white shadow-lg",
+        icons: [Snowflake, Gift, Bell, Trees, Star, Heart, Moon, Cloud],
+        colors: ["text-red-600", "text-green-600", "text-yellow-500", "text-blue-500"],
         vocabulary: {
-            moves: "Hacks",
-            victory: "System Override",
-            defeat: "Connection Severed",
-            play: "Jack In"
+            moves: "Wishes",
+            victory: "Holiday Magic!",
+            defeat: "Coal in Stocking",
+            play: "Unwrap"
         },
-        animation: "matrix" // Matrix rain
+        animation: "snow" // Gentle snowfall
     }
 };
