@@ -7,7 +7,7 @@ A beautiful, thematic memory matching game built with React, Vite, and Tailwind 
 
 | 📅 Last Updated | 🏷️ Version | 🔨 Latest Commit |
 | :--- | :--- | :--- |
-| Sat, 27 Dec 2025 08:24:51 GMT | v0.1.0 | [`cce0b38`](https://github.com/zhnuksyh/ditto/commit/cce0b38) - Add README with game details |
+| Sat, 27 Dec 2025 09:06:15 GMT | v0.1.0 | [`7024aad`](https://github.com/zhnuksyh/ditto/commit/7024aad) - feat: enhance UI with animations, add dependencies, and setup readme automation |
 
 <!-- END_SECTION:status -->
 
