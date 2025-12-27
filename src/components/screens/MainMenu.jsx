@@ -41,7 +41,9 @@ const MainMenu = ({
                         <label className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                             <Sparkles className="w-4 h-4" /> Select Theme
                         </label>
-                        <div className="grid grid-cols-1 gap-5">
+
+                        {/* Desktop View: Grid */}
+                        <div className="hidden lg:grid grid-cols-1 gap-5">
                             {Object.entries(THEMES).map(([key, t]) => {
                                 const ThemeIcon = t.icons[0];
                                 const isSelected = theme === key;
@@ -91,11 +93,56 @@ const MainMenu = ({
                                             <div className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.name}</div>
                                             <div className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t.description}</div>
                                         </div>
-
-
                                     </motion.button>
                                 );
                             })}
+                        </div>
+
+                        {/* Mobile View: Toggle */}
+                        <div className="lg:hidden">
+                            <motion.button
+                                onClick={() => {
+                                    // Cycle: christmas -> nature -> space -> christmas
+                                    const nextTheme = theme === 'christmas' ? 'nature' : theme === 'nature' ? 'space' : 'christmas';
+                                    setTheme(nextTheme);
+                                }}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.95 }}
+                                className={`w-full cursor-pointer border-2 rounded-xl p-4 flex items-center justify-between transition-all relative overflow-hidden
+                                    ${currentTheme.isSpecial
+                                        ? 'border-transparent' // Let candy cane border handle it
+                                        : isDark
+                                            ? 'border-slate-800 hover:border-slate-700 hover:bg-slate-800'
+                                            : 'border-slate-100 hover:border-slate-200 hover:bg-slate-50'
+                                    }
+                                    ${isDark && !currentTheme.isSpecial ? 'bg-slate-800' : ''}
+                                `}
+                            >
+                                {/* Special Mobile Styles */}
+                                {currentTheme.isSpecial && (
+                                    <>
+                                        <div className="absolute inset-0 candy-cane-border opacity-20 pointer-events-none" />
+                                        <div className="absolute inset-0 border-4 border-amber-400/50 rounded-xl pointer-events-none z-20" />
+                                        <div className="absolute top-0 right-0 z-30">
+                                            <div className="bg-gradient-to-r from-red-500 to-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider shadow-md flex items-center gap-1">
+                                                <Gift className="w-3 h-3" />
+                                                Special
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+
+                                <div className="flex items-center gap-4 z-10 relative">
+                                    <div className={`w-12 h-12 rounded-full ${currentTheme.bg} flex items-center justify-center shrink-0 shadow-sm`}>
+                                        {React.createElement(currentTheme.icons[0], { className: `w-6 h-6 ${currentTheme.accent}` })}
+                                    </div>
+                                    <div className="text-left">
+                                        <div className={`font-bold text-lg ${isDark ? 'text-white' : 'text-slate-900'}`}>{currentTheme.name}</div>
+                                        <div className={`text-sm font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{currentTheme.description}</div>
+                                    </div>
+                                </div>
+                                <ChevronRight className={`w-5 h-5 z-10 relative ${isDark ? 'text-slate-600' : 'text-slate-300'}`} />
+                            </motion.button>
                         </div>
                     </div>
 

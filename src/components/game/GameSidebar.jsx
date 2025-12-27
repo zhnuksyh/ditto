@@ -23,54 +23,55 @@ const GameSidebar = ({
 
     return (
         <div className="w-full lg:w-80 shrink-0 flex flex-col gap-4 lg:sticky lg:top-8">
-            <Card className="bg-white/90 backdrop-blur-md p-6 flex flex-col gap-6 shadow-xl border-white/20">
+            <Card className="bg-white/90 backdrop-blur-md p-4 lg:p-6 flex flex-row lg:flex-col items-center lg:items-stretch gap-4 lg:gap-6 shadow-xl border-white/20">
 
-                {/* Sidebar Header */}
-                <div className="flex items-center justify-between lg:justify-start lg:gap-3 border-b border-slate-100 pb-4 lg:pb-6">
-                    <div className={`p-2 rounded-lg ${currentTheme.bg} ${currentTheme.accent}`}>
-                        <Gamepad2 className="w-6 h-6" />
+                {/* Sidebar Header - Compact on mobile */}
+                <div className="flex items-center gap-3 lg:border-b lg:border-slate-100 lg:pb-6">
+                    <div className={`p-1.5 lg:p-2 rounded-lg ${currentTheme.bg} ${currentTheme.accent}`}>
+                        <Gamepad2 className="w-5 h-5 lg:w-6 lg:h-6" />
                     </div>
-                    <div className="text-left">
-                        <h2 className="font-bold text-2xl text-slate-900 leading-none tracking-tight">Ditto!</h2>
+                    <div className="text-left py-1 lg:py-0">
+                        <h2 className="font-bold text-lg lg:text-2xl text-slate-900 leading-none tracking-tight">Ditto!</h2>
                     </div>
                 </div>
 
-                {/* Stats Panel */}
-                <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
+                {/* Stats Panel - Horizontal row on mobile, Stack on Desktop */}
+                <div className="flex-1 flex gap-2 lg:grid lg:grid-cols-1 lg:gap-3">
                     {/* Live Counter */}
-                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 flex flex-col items-center justify-center">
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
-                            {gameMode === 'time-attack' ? 'Time Left' : (currentTheme.vocabulary ? currentTheme.vocabulary.moves : 'Moves')}
+                    <div className="flex-1 bg-slate-50 p-2 lg:p-4 rounded-xl border border-slate-100 flex flex-col items-center justify-center">
+                        <span className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5 lg:mb-1">
+                            {gameMode === 'time-attack' ? 'Time' : (currentTheme.vocabulary ? currentTheme.vocabulary.moves : 'Moves')}
                         </span>
-                        <div className={`text-3xl font-medium ${gameMode === 'time-attack' && time < 10 ? 'text-red-500 animate-pulse' : 'text-slate-900'}`}>
+                        <div className={`text-xl lg:text-3xl font-medium leading-tight ${gameMode === 'time-attack' && time < 10 ? 'text-red-500 animate-pulse' : 'text-slate-900'}`}>
                             {gameMode === 'time-attack' ? formatTime(time) : moves}
                         </div>
                     </div>
 
                     {/* Best Score */}
-                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 flex flex-col items-center justify-center">
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                    <div className="flex-1 bg-slate-50 p-2 lg:p-4 rounded-xl border border-slate-100 flex flex-col items-center justify-center">
+                        <span className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5 lg:mb-1">
                             Best
                         </span>
-                        <div className="text-3xl font-medium text-slate-900">
+                        <div className="text-xl lg:text-3xl font-medium leading-tight text-slate-900">
                             {highScores[`${difficulty}-${gameMode}`] || '-'}
                         </div>
                     </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="space-y-3 pt-2">
+                {/* Action Buttons - Compact on mobile */}
+                <div className="flex lg:flex-col gap-2 lg:gap-3 lg:pt-2">
                     <Button
                         onClick={onPeek}
-                        disabled={peekUsed} // Note: Parent should handle status check or pass status, but simple disable here works if Logic handles it too. Logic handles it.
-                        className={`w-full py-6 text-base ${peekUsed ? 'opacity-50 cursor-not-allowed bg-slate-100 text-slate-400' : 'bg-amber-400 hover:bg-amber-500 text-amber-950'} border-0 shadow-md`}
+                        disabled={peekUsed}
+                        className={`p-3 lg:w-full lg:py-6 text-sm lg:text-base ${peekUsed ? 'opacity-50 cursor-not-allowed bg-slate-100 text-slate-400' : 'bg-amber-400 hover:bg-amber-500 text-amber-950'} border-0 shadow-md`}
                     >
-                        {peekUsed ? <Lock className="w-5 h-5 mr-2" /> : <Eye className="w-5 h-5 mr-2" />}
-                        {peekUsed ? 'Peek Used' : 'Peek Board'}
+                        {peekUsed ? <Lock className="w-5 h-5 lg:mr-2" /> : <Eye className="w-5 h-5 lg:mr-2" />}
+                        <span className="hidden lg:inline">{peekUsed ? 'Peek Used' : 'Peek Board'}</span>
                     </Button>
 
-                    <Button onClick={onMenu} variant="outline" className="w-full py-4 bg-transparent border-2 border-slate-200 hover:bg-slate-50 text-slate-600">
-                        <ChevronRight className="w-4 h-4 rotate-180 mr-2" /> Menu
+                    <Button onClick={onMenu} variant="outline" className="p-3 lg:w-full lg:py-4 bg-transparent border-2 border-slate-200 hover:bg-slate-50 text-slate-600">
+                        <ChevronRight className="w-4 h-4 rotate-180 lg:mr-2" />
+                        <span className="hidden lg:inline">Menu</span>
                     </Button>
                 </div>
             </Card>

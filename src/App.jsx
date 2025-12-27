@@ -14,7 +14,7 @@ export default function App() {
     // --------------------------------------------------------------------------
 
     // Configuration State
-    const [theme, setTheme] = useState('space');
+    const [theme, setTheme] = useState('christmas');
     const [difficulty, setDifficulty] = useState('medium');
     const [gameMode, setGameMode] = useState('standard');
 

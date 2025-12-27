@@ -3,17 +3,21 @@ import { Gamepad2 } from 'lucide-react';
 
 const CardGrid = ({ cards, flipped, matched, currentTheme, currentDiff, onCardClick }) => {
     // Dynamic max-width to keep card sizes consistent across difficulties
-    // Hard (6 cols) -> max-w-4xl (56rem / 6 ≈ 9.33rem per col)
-    // Medium (4 cols) -> max-w-xl (36rem / 4 = 9rem per col) - Closest match
-    // Easy (3 cols) -> max-w-md (28rem / 3 ≈ 9.33rem per col) - Exact match
-    const maxWidthClass = currentDiff.cols === 6 ? 'max-w-4xl' :
-        currentDiff.cols === 4 ? 'max-w-xl' : 'max-w-md';
+    // Mobile: Always max-w-md (3 cols)
+    // Desktop: Scales with cols
+    const maxWidthClass = currentDiff.cols === 6 ? 'lg:max-w-4xl' :
+        currentDiff.cols === 4 ? 'lg:max-w-xl' : 'max-w-md';
+
+    // Grid columns:
+    // Mobile: Fixed 3 columns (grid-cols-3)
+    // Desktop: Dynamic based on difficulty (lg:grid-cols-X)
+    const gridColsClass = currentDiff.cols === 6 ? 'lg:grid-cols-6' :
+        currentDiff.cols === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
 
     return (
         <div className="flex-1 w-full flex justify-center">
             <div
-                className={`grid gap-4 w-full ${maxWidthClass} mx-auto perspective-1000`}
-                style={{ gridTemplateColumns: `repeat(${currentDiff.cols}, minmax(0, 1fr))` }}
+                className={`grid grid-cols-3 ${gridColsClass} gap-4 w-full max-w-md ${maxWidthClass} mx-auto perspective-1000`}
             >
                 {cards.map((card) => {
                     const isFlipped = flipped.includes(card.id) || matched.includes(card.id);

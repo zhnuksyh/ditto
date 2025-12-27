@@ -2,7 +2,8 @@ import {
     Ghost, Heart, Star, Moon, Sun, Cloud, Snowflake, Zap,
     Leaf, Flower, Trees, Mountain, Droplets, Wind,
     Cpu, Disc, Radio, Wifi, Battery, Monitor, Gamepad2,
-    Gift, Bell // Added holiday icons
+    Gift, Bell,
+    Rocket, Globe, Bird, Fish, Tent, Sunset, Music, Flame, ShoppingBag, Calendar // Added more icons
 } from 'lucide-react';
 
 export const THEMES = {
@@ -15,7 +16,7 @@ export const THEMES = {
         outline: "border-indigo-500",
         accent: "text-indigo-300",
         button: "bg-indigo-500 hover:bg-indigo-600 text-white",
-        icons: [Ghost, Moon, Star, Sun, Cloud, Snowflake, Zap, Heart],
+        icons: [Ghost, Moon, Star, Sun, Cloud, Snowflake, Zap, Heart, Rocket, Globe, Radio, Cpu],
         colors: ["text-indigo-300", "text-purple-300", "text-blue-300", "text-sky-300"],
         vocabulary: {
             moves: "Warps",
@@ -34,7 +35,7 @@ export const THEMES = {
         outline: "border-emerald-500",
         accent: "text-emerald-600",
         button: "bg-emerald-500 hover:bg-emerald-600 text-white",
-        icons: [Leaf, Flower, Trees, Mountain, Droplets, Wind, Sun, Cloud],
+        icons: [Leaf, Flower, Trees, Mountain, Droplets, Wind, Sun, Cloud, Bird, Fish, Tent, Sunset],
         colors: ["text-emerald-600", "text-green-600", "text-lime-600", "text-teal-600"],
         vocabulary: {
             moves: "Steps",
@@ -54,7 +55,7 @@ export const THEMES = {
         outline: "border-transparent",
         accent: "text-red-600",
         button: "bg-red-600 hover:bg-red-700 text-white shadow-lg",
-        icons: [Snowflake, Gift, Bell, Trees, Star, Heart, Moon, Cloud],
+        icons: [Snowflake, Gift, Bell, Trees, Star, Heart, Moon, Cloud, Music, Flame, ShoppingBag, Calendar],
         colors: ["text-red-600", "text-green-600", "text-yellow-500", "text-blue-500"],
         vocabulary: {
             moves: "Wishes",
