@@ -14,6 +14,12 @@ const VictoryModal = ({
 }) => {
     if (status !== 'won' && status !== 'lost') return null;
 
+    const formatTime = (seconds) => {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${m}:${s.toString().padStart(2, '0')}`;
+    };
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
             <Card className="w-full max-w-md p-8 flex flex-col items-center text-center space-y-6 bg-white animate-in zoom-in-95 shadow-2xl">
@@ -22,16 +28,39 @@ const VictoryModal = ({
                 </div>
 
                 <div className="space-y-2">
-                    <h2 className="text-4xl font-bold text-slate-900">
+                    <h2 className="text-4xl font-bold text-slate-900 mb-6">
                         {status === 'won'
                             ? (currentTheme.vocabulary ? currentTheme.vocabulary.victory : 'VICTORY!')
                             : (currentTheme.vocabulary ? currentTheme.vocabulary.defeat : 'GAME OVER')}
                     </h2>
-                    <p className="text-slate-500 text-lg font-medium">
-                        {status === 'won'
-                            ? `You cleared the board in ${gameMode === 'standard' ? `${moves} ${currentTheme.vocabulary ? currentTheme.vocabulary.moves.toLowerCase() : 'moves'}` : `time!`}`
-                            : "Time ran out! Better luck next time."}
-                    </p>
+                    {status === 'won' ? (
+                        <div className="flex flex-col items-center gap-4 w-full">
+                            <div className="flex w-full max-w-[240px] border-b border-slate-100 pb-2 mb-2">
+                                <div className="flex-1 text-left text-sm font-bold text-slate-400 uppercase tracking-wider">
+                                    Metric
+                                </div>
+                                <div className="flex-1 text-right text-sm font-bold text-slate-400 uppercase tracking-wider">
+                                    Result
+                                </div>
+                            </div>
+
+                            {gameMode === 'standard' && (
+                                <div className="flex w-full max-w-[240px] items-center justify-between">
+                                    <div className="text-slate-500 font-medium">Moves</div>
+                                    <div className="text-2xl font-bold text-slate-800">{moves}</div>
+                                </div>
+                            )}
+
+                            <div className="flex w-full max-w-[240px] items-center justify-between">
+                                <div className="text-slate-500 font-medium">{gameMode === 'time-attack' ? 'Time Left' : 'Time'}</div>
+                                <div className="text-2xl font-bold text-slate-800">{formatTime(time)}</div>
+                            </div>
+                        </div>
+                    ) : (
+                        <p className="text-slate-500 text-lg font-medium">
+                            Time ran out! Better luck next time.
+                        </p>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 w-full pt-4">

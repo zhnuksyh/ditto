@@ -1,5 +1,6 @@
 import React from 'react';
 import { Gamepad2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const CardGrid = ({ cards, flipped, matched, currentTheme, currentDiff, onCardClick }) => {
     // Dynamic max-width to keep card sizes consistent across difficulties
@@ -24,48 +25,62 @@ const CardGrid = ({ cards, flipped, matched, currentTheme, currentDiff, onCardCl
                     const isMatched = matched.includes(card.id);
 
                     return (
-                        <div
+                        <motion.div
                             key={card.id}
                             onClick={() => onCardClick(card.id)}
+                            animate={isMatched ? {
+                                scale: [1, 1.25, 0.9, 1.1, 1],
+                                rotate: [0, 10, -10, 5, -5, 0],
+                                transition: { duration: 0.6, ease: "easeInOut" }
+                            } : {}}
+                            transition={{ duration: 0.3 }}
                             className={`
                                 aspect-square relative cursor-pointer
-                                transition-all duration-500 transform
-                                ${isMatched ? 'scale-95 opacity-60' : 'hover:scale-[1.02] hover:shadow-xl hover:z-10'}
+                                transition-all duration-300
+                                ${isMatched ? 'z-0' : 'hover:scale-[1.02] hover:z-10'}
                             `}
                             style={{
-                                transformStyle: 'preserve-3d',
-                                transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                                perspective: '1000px'
                             }}
                         >
-                            {/* Card Back Face (The Design) */}
                             <div
-                                className={`
-                                    absolute inset-0 rounded-2xl shadow-md
-                                    flex items-center justify-center
-                                    ${currentTheme.cardBack}
-                                    backface-hidden border-b-[6px] transition-colors
-                                `}
-                                style={{ backfaceVisibility: 'hidden' }}
+                                className={`w-full h-full relative preserve-3d transition-all duration-500`}
+                                style={{
+                                    transformStyle: 'preserve-3d',
+                                    transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                                }}
                             >
-                                <div className="opacity-20 transform rotate-45">
-                                    <Gamepad2 className="w-8 h-8 text-white" />
+                                {/* Card Back Face (The Design) */}
+                                <div
+                                    className={`
+                                        absolute inset-0 rounded-2xl shadow-md
+                                        flex items-center justify-center
+                                        ${currentTheme.cardBack}
+                                        backface-hidden border-b-[6px]
+                                    `}
+                                    style={{ backfaceVisibility: 'hidden' }}
+                                >
+                                    <div className="opacity-20 transform rotate-45">
+                                        <Gamepad2 className="w-8 h-8 text-white" />
+                                    </div>
+                                </div>
+
+                                {/* Card Front Face (The Icon) */}
+                                <div
+                                    className={`
+                                        absolute inset-0 rounded-2xl shadow-xl border-2
+                                        flex items-center justify-center
+                                        bg-white
+                                        backface-hidden
+                                        ${isMatched ? (currentTheme.matchClass || 'ring-4 ring-green-400') : 'border-slate-100'}
+                                    `}
+                                    style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                                >
+                                    <card.Icon className={`w-3/5 h-3/5 ${card.color} drop-shadow-sm`} />
+                                    {isMatched && <div className="absolute inset-0 bg-white/10 rounded-2xl animate-pulse" />}
                                 </div>
                             </div>
-
-                            {/* Card Front Face (The Icon) */}
-                            <div
-                                className={`
-                                    absolute inset-0 rounded-2xl shadow-xl border-2
-                                    flex items-center justify-center
-                                    bg-white border-slate-100
-                                    backface-hidden
-                                `}
-                                style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-                            >
-                                <card.Icon className={`w-3/5 h-3/5 ${card.color} drop-shadow-sm`} />
-                                {isMatched && <div className="absolute inset-0 bg-green-500/10 rounded-2xl animate-pulse" />}
-                            </div>
-                        </div>
+                        </motion.div>
                     );
                 })}
             </div>

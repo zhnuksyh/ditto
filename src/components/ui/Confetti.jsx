@@ -1,27 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import confetti from 'canvas-confetti';
 
 const Confetti = () => {
-    return (
-        <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-            {/* Generates 50 particles with random colors and animation delays */}
-            {[...Array(50)].map((_, i) => (
-                <div
-                    key={i}
-                    className="absolute animate-fall"
-                    style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `-20px`,
-                        animationDuration: `${Math.random() * 3 + 2}s`,
-                        animationDelay: `${Math.random() * 2}s`,
-                        backgroundColor: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'][Math.floor(Math.random() * 5)],
-                        width: '10px',
-                        height: '10px',
-                        borderRadius: '50%'
-                    }}
-                />
-            ))}
-        </div>
-    );
+    useEffect(() => {
+        const duration = 3000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+        const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+        const interval = setInterval(() => {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            // since particles fall down, start a bit higher than random
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+            });
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+            });
+        }, 250);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return null; // Canvas is handled by the library
 };
 
 export default Confetti;

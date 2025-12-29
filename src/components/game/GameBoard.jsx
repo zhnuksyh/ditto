@@ -16,7 +16,8 @@ const GameBoard = ({
     peekUsed,
     onPeek,
     onMenu,
-    onCardClick
+    onCardClick,
+    bonusNotification
 }) => {
     return (
         <div className={`min-h-screen ${currentTheme.bg} transition-colors duration-500 flex flex-col p-4 lg:p-8 font-game`}>
@@ -45,6 +46,7 @@ const GameBoard = ({
                     peekUsed={peekUsed}
                     onPeek={onPeek}
                     onMenu={onMenu}
+                    bonusNotification={bonusNotification}
                 />
                 <CardGrid
                     cards={cards}

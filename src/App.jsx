@@ -36,7 +36,8 @@ export default function App() {
         peekUsed,
         startGame,
         handleCardClick,
-        activatePeek
+        activatePeek,
+        bonusNotification
     } = useGameLogic(
         currentTheme,
         currentDiff,
@@ -52,10 +53,7 @@ export default function App() {
         <>
             {/* Font Loader & Animations */}
             {/* We include this here so it's available globally */}
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
-                .font-game { font-family: 'Fredoka', sans-serif; }
-            `}</style>
+            {/* Font Loader moved to index.html for better performance */}
 
             {status === 'won' && <Confetti />}
 
@@ -86,6 +84,7 @@ export default function App() {
                     onPeek={activatePeek}
                     onMenu={() => setStatus('menu')}
                     onCardClick={handleCardClick}
+                    bonusNotification={bonusNotification}
                 />
             )}
 

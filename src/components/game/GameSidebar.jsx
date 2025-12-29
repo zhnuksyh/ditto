@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Gamepad2, Eye, Lock, ChevronRight } from 'lucide-react';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
@@ -12,8 +13,20 @@ const GameSidebar = ({
     difficulty,
     peekUsed,
     onPeek,
-    onMenu
+    onMenu,
+    bonusNotification
 }) => {
+    // Bonus Animation State
+    const [showBonus, setShowBonus] = useState(false);
+
+    useEffect(() => {
+        if (bonusNotification) {
+            setShowBonus(true);
+            const timer = setTimeout(() => setShowBonus(false), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [bonusNotification]);
+
     // Helper format function
     const formatTime = (seconds) => {
         const m = Math.floor(seconds / 60);
@@ -40,11 +53,31 @@ const GameSidebar = ({
                     {/* Live Counter */}
                     <div className="flex-1 bg-slate-50 p-2 lg:p-4 rounded-xl border border-slate-100 flex flex-col items-center justify-center">
                         <span className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5 lg:mb-1">
-                            {gameMode === 'time-attack' ? 'Time' : (currentTheme.vocabulary ? currentTheme.vocabulary.moves : 'Moves')}
+                            {gameMode === 'time-attack' ? 'Time Remaining' : (currentTheme.vocabulary ? currentTheme.vocabulary.moves : 'Moves')}
                         </span>
-                        <div className={`text-xl lg:text-3xl font-medium leading-tight ${gameMode === 'time-attack' && time < 10 ? 'text-red-500 animate-pulse' : 'text-slate-900'}`}>
-                            {gameMode === 'time-attack' ? formatTime(time) : moves}
+                        <div className="relative inline-flex items-center justify-center">
+                            <div className={`text-xl lg:text-3xl font-medium leading-tight ${gameMode === 'time-attack' && time < 10 ? 'text-red-500 animate-pulse' : 'text-slate-900'}`}>
+                                {gameMode === 'time-attack' ? formatTime(time) : moves}
+                            </div>
+                            <AnimatePresence>
+                                {showBonus && gameMode === 'time-attack' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 0, y: 0, scale: 0.5 }}
+                                        animate={{ opacity: 1, x: 20, y: -10, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.5 }}
+                                        className="absolute left-full ml-1 font-bold text-green-500 text-sm lg:text-base whitespace-nowrap drop-shadow-sm pointer-events-none"
+                                    >
+                                        +5s
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
+                        {/* Secondary Stat (Time in Standard) */}
+                        {gameMode !== 'time-attack' && (
+                            <div className="text-xs text-slate-400 mt-1">
+                                {formatTime(time)}
+                            </div>
+                        )}
                     </div>
 
                     {/* Best Score */}
@@ -53,7 +86,28 @@ const GameSidebar = ({
                             Best
                         </span>
                         <div className="text-xl lg:text-3xl font-medium leading-tight text-slate-900">
-                            {highScores[`${difficulty}-${gameMode}`] || '-'}
+                            {(() => {
+                                const score = highScores[`${difficulty}-${gameMode}`];
+                                if (!score && score !== 0) return '-';
+
+                                // Legacy (Number)
+                                if (typeof score === 'number') {
+                                    if (gameMode === 'time-attack') return formatTime(score);
+                                    return `${score}`; // Just moves
+                                }
+
+                                // Object { moves, time }
+                                if (typeof score === 'object') {
+                                    if (gameMode === 'time-attack') return formatTime(score.time);
+                                    // Standard: Show moves (primary for standard)
+                                    // If we want to show time too, we might need more space or a tooltip,
+                                    // but for this small box, just "Best Moves" is standards-compliant or specifically what fits.
+                                    // Let's formatting it like "12 (0:45)" if it fits, or just 12. 
+                                    // The design has limited space. Let's try Moves first.
+                                    return score.moves;
+                                }
+                                return '-';
+                            })()}
                         </div>
                     </div>
                 </div>

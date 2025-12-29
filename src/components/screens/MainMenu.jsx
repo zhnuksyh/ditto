@@ -200,9 +200,39 @@ const MainMenu = ({
                         <div className={`mt-auto rounded-xl p-4 text-center border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-50 border-slate-100'}`}>
                             <span className={`text-sm font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                 Personal Best ({currentDiff.label}):
-                                <span className={`ml-2 font-bold text-lg ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                                    {highScores[`${difficulty}-${gameMode}`] || '-'}
-                                </span>
+                                <div className={`ml-2 font-bold inline-block ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                                    {(() => {
+                                        const score = highScores[`${difficulty}-${gameMode}`];
+
+                                        // Case 1: No score
+                                        if (!score && score !== 0) return <span className="text-slate-400 font-normal">-</span>;
+
+                                        // Formatter
+                                        const formatT = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
+
+                                        // Case 2: Legacy Score (Number)
+                                        if (typeof score === 'number') {
+                                            if (gameMode === 'time-attack') return `${formatT(score)} Left`;
+                                            return `${score} Moves`;
+                                        }
+
+                                        // Case 3: Object Score { moves, time }
+                                        if (typeof score === 'object') {
+                                            if (gameMode === 'time-attack') {
+                                                return `${formatT(score.time)} Left`;
+                                            }
+                                            // Standard
+                                            return (
+                                                <div className="flex items-baseline justify-center gap-2">
+                                                    <span>{score.moves} Moves</span>
+                                                    <span className="font-normal text-slate-500">in</span>
+                                                    <span>{formatT(score.time)}</span>
+                                                </div>
+                                            );
+                                        }
+
+                                        return '-';
+                                    })()}</div>
                             </span>
                         </div>
                     </div>

@@ -9,20 +9,43 @@ const usePersistedScore = () => {
         if (saved) setHighScores(JSON.parse(saved));
     }, []);
 
-    const saveScore = (difficulty, gameMode, score) => {
+    const saveScore = (difficulty, gameMode, scoreData) => {
         const key = `${difficulty}-${gameMode}`;
-        const best = highScores[key];
+        const best = highScores[key]; // best can be number (legacy) or object {moves, time}
+
+        // Normalizing current score data to object if it isn't already (backwards compatibility)
+        // Note: scoreData coming from useGameLogic will now be { moves, time }
+        const currentMoves = scoreData.moves;
+        const currentTime = scoreData.time;
 
         let isNewRecord = false;
-        // Lower moves is better in Standard; Higher time remaining is better in Time Attack
+
         if (gameMode === 'time-attack') {
-            if (!best || score > best) isNewRecord = true;
+            // Time Attack: Higher Time Remaining is better
+            // Legacy support: if best is just a number, treat it as time
+            const bestTime = typeof best === 'object' ? best.time : best;
+
+            if (!best || currentTime > bestTime) {
+                isNewRecord = true;
+            }
         } else {
-            if (!best || score < best) isNewRecord = true;
+            // Standard: Lower Moves is better. Tie-breaker: Lower Time is better.
+            const bestMoves = typeof best === 'object' ? best.moves : best;
+            const bestTime = typeof best === 'object' ? best.time : 999999; // Default high time for legacy
+
+            if (!best) {
+                isNewRecord = true;
+            } else if (currentMoves < bestMoves) {
+                isNewRecord = true;
+            } else if (currentMoves === bestMoves && currentTime < bestTime) {
+                isNewRecord = true;
+            }
         }
 
         if (isNewRecord) {
-            const newScores = { ...highScores, [key]: score };
+            // Store as object
+            const newScoreValue = { moves: currentMoves, time: currentTime };
+            const newScores = { ...highScores, [key]: newScoreValue };
             setHighScores(newScores);
             localStorage.setItem('memory-game-scores', JSON.stringify(newScores));
         }

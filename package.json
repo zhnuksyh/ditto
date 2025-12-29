@@ -14,6 +14,7 @@
     "update-readme": "node scripts/update-readme.js"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.294.0",
