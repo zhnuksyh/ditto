@@ -1,4 +1,4 @@
-# Ditto - Memory Match Game
+# Ditto! Memory Matching Game
 
 A beautiful, thematic memory matching game built with React, Vite, and Tailwind CSS. Test your memory across different worlds with unique visual styles and vocabularies.
 
@@ -7,7 +7,7 @@ A beautiful, thematic memory matching game built with React, Vite, and Tailwind 
 
 | 📅 Last Updated | 🏷️ Version | 🔨 Latest Commit |
 | :--- | :--- | :--- |
-| Mon, 29 Dec 2025 11:56:12 GMT | v0.1.0 | [`5923319`](https://github.com/zhnuksyh/ditto/commit/5923319) - chore: update styles and sync |
+| Mon, 05 Jan 2026 12:30:00 GMT | v0.1.0 | [HEAD](https://github.com/zhnuksyh/ditto/commits/main) - Add Christmas theme and correct game stats |
 
 <!-- END_SECTION:status -->
 
@@ -21,12 +21,12 @@ A beautiful, thematic memory matching game built with React, Vite, and Tailwind 
 Choose your atmosphere. Each theme comes with unique colors, icons, background animations, and vocabulary:
 - **Cosmic**: Drift through space with floating elements. Moves are "Warps".
 - **Forest**: Relax in nature with falling leaves. Moves are "Steps".
-- **Neon**: Hack the system in a cyberpunk world. Moves are "Hacks".
+- **Christmas**: Festive holiday spirit with gentle snowfall. Moves are "Wishes".
 
 ### 🏆 Difficulty Levels
 Challenge yourself with increasing complexity:
 - **Easy**: 12 cards (6 pairs) - 45s timer
-- **Medium**: 16 cards (8 pairs) - 60s timer
+- **Medium**: 18 cards (9 pairs) - 70s timer
 - **Hard**: 24 cards (12 pairs) - 90s timer
 
 ### 💾 Progress Tracking
