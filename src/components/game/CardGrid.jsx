@@ -9,6 +9,7 @@ const GRID_COLS = {
     4: 'lg:grid-cols-4',
     6: 'lg:grid-cols-6',
     8: 'lg:grid-cols-8',
+    10: 'lg:grid-cols-10',
 };
 
 const MAX_WIDTH = {
@@ -16,6 +17,7 @@ const MAX_WIDTH = {
     4: 'lg:max-w-xl',
     6: 'lg:max-w-4xl',
     8: 'lg:max-w-6xl',
+    10: 'lg:max-w-7xl',
 };
 
 

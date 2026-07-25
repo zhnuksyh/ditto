@@ -21,7 +21,12 @@ const GameBoard = ({
 }) => {
     // The control bar is capped to the board's own desktop width so their edges
     // line up. Keep this in sync with MAX_WIDTH in CardGrid.
-    const barWidth = currentDiff.cols === 8 ? 'lg:max-w-6xl' : 'lg:max-w-4xl';
+    const BAR_WIDTH = {
+        6: 'lg:max-w-4xl',
+        8: 'lg:max-w-6xl',
+        10: 'lg:max-w-7xl',
+    };
+    const barWidth = BAR_WIDTH[currentDiff.cols] ?? BAR_WIDTH[6];
 
     // Centered on desktop, where the board always fits. On mobile the taller decks
     // exceed the viewport, so the column starts at the top and scrolls normally
