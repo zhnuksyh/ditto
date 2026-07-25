@@ -35,7 +35,7 @@ const GameSidebar = ({
     };
 
     return (
-        <div className="w-full lg:w-80 shrink-0 flex flex-col gap-4 lg:sticky lg:top-8">
+        <div className="w-full lg:w-80 shrink-0 flex flex-col gap-4">
             <Card className="bg-white/90 backdrop-blur-md p-4 lg:p-6 flex flex-row lg:flex-col items-center lg:items-stretch gap-4 lg:gap-6 shadow-xl border-white/20">
 
                 {/* Sidebar Header - Compact on mobile */}
