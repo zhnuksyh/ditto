@@ -16,16 +16,27 @@ const MAX_WIDTH = {
     6: 'lg:max-w-4xl',
 };
 
+// Mobile stays at 3 columns for every difficulty, so tile size is driven purely
+// by container width. Fewer pairs means fewer rows, which left the 12-card easy
+// board looking oversized next to medium/hard. Narrowing the mobile container
+// for small decks keeps the tiles visually consistent across difficulties.
+const MOBILE_MAX_WIDTH = {
+    6: 'max-w-[17rem]',  // 12 cards -> 4 rows
+    9: 'max-w-sm',       // 18 cards -> 6 rows
+    12: 'max-w-md',      // 24 cards -> 8 rows
+};
+
 const CardGrid = ({ cards, flipped, matched, currentTheme, currentDiff, onCardClick }) => {
     // Desktop column count comes from the difficulty; width scales with it so
     // cards stay the same size and only the number of rows changes.
     const gridColsClass = GRID_COLS[currentDiff.cols] ?? GRID_COLS[6];
     const maxWidthClass = MAX_WIDTH[currentDiff.cols] ?? MAX_WIDTH[6];
+    const mobileMaxWidthClass = MOBILE_MAX_WIDTH[currentDiff.pairs] ?? 'max-w-md';
 
     return (
         <div className="w-full flex items-center justify-center">
             <div
-                className={`grid grid-cols-3 ${gridColsClass} gap-4 w-full max-w-md ${maxWidthClass} mx-auto perspective-1000`}
+                className={`grid grid-cols-3 ${gridColsClass} gap-4 w-full ${mobileMaxWidthClass} ${maxWidthClass} mx-auto perspective-1000`}
             >
                 {cards.map((card) => {
                     const isFlipped = flipped.includes(card.id) || matched.includes(card.id);
