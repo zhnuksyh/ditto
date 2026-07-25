@@ -24,14 +24,17 @@ Choose your atmosphere. Each theme comes with unique colors, icons, background a
 - **Christmas**: Festive holiday spirit with gentle snowfall. Moves are "Wishes".
 
 ### 🏆 Difficulty Levels
-Challenge yourself with increasing complexity. Every level uses the same card
-size — only the number of rows grows:
+Challenge yourself with increasing complexity:
 - **Easy**: 12 cards (6 pairs) - 6×2 grid - 45s timer
 - **Medium**: 18 cards (9 pairs) - 6×3 grid - 70s timer
 - **Hard**: 24 cards (12 pairs) - 6×4 grid - 90s timer
+- **Expert**: 32 cards (16 pairs) - 8×4 grid - 120s timer
 
-On **Hard**, every card is assigned a random color so you can't match by color
-alone. Mobile drops to a 3-column layout at every difficulty.
+Easy through Hard share the same card size and only grow in rows; Expert widens
+to 8 columns so the board still fits shorter screens. Mobile drops to a
+3-column layout at every difficulty.
+
+Matching cards always share a color — color is never a red herring.
 
 ### 🎯 Game Modes
 - **Standard**: The move counter climbs. Fewest moves wins, with elapsed time as

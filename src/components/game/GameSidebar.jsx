@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Gamepad2, Eye, Lock, ChevronRight } from 'lucide-react';
-import Button from '../ui/Button';
-import Card from '../ui/Card';
+import { Eye, Lock, ArrowLeft, Timer, LayoutGrid, Trophy } from 'lucide-react';
 
 const GameSidebar = ({
     currentTheme,
@@ -27,108 +25,97 @@ const GameSidebar = ({
         }
     }, [bonusNotification]);
 
-    // Helper format function
     const formatTime = (seconds) => {
         const m = Math.floor(seconds / 60);
         const s = seconds % 60;
         return `${m}:${s.toString().padStart(2, '0')}`;
     };
 
+    const isTimeAttack = gameMode === 'time-attack';
+
+    // Icons carry the meaning here, so each pill also gets screen-reader text.
+    const liveLabel = isTimeAttack
+        ? 'Time remaining'
+        : (currentTheme.vocabulary ? currentTheme.vocabulary.moves : 'Moves');
+
+    const bestValue = (() => {
+        const score = highScores[`${difficulty}-${gameMode}`];
+        if (!score && score !== 0) return '-';
+        if (typeof score === 'number') {
+            return isTimeAttack ? formatTime(score) : `${score}`;
+        }
+        if (typeof score === 'object') {
+            return isTimeAttack ? formatTime(score.time) : score.moves;
+        }
+        return '-';
+    })();
+
+    const pill = 'flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 shadow-sm ring-1 ring-slate-900/5 backdrop-blur-sm';
+    const pillValue = 'text-sm lg:text-base font-bold leading-none tabular-nums';
+
     return (
-        <div className="w-full lg:w-80 shrink-0 flex flex-col gap-4">
-            <Card className="bg-white/90 backdrop-blur-md p-4 lg:p-6 flex flex-row lg:flex-col items-center lg:items-stretch gap-4 lg:gap-6 shadow-xl border-white/20">
+        <div className="w-full flex items-center gap-3">
+            {/* Menu pinned left */}
+            <button
+                onClick={onMenu}
+                className="shrink-0 flex items-center gap-2 rounded-full bg-white/80 pl-3 pr-4 py-2 text-slate-700 shadow-sm ring-1 ring-slate-900/5 backdrop-blur-sm transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+            >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="text-sm font-bold">Menu</span>
+            </button>
 
-                {/* Sidebar Header - Compact on mobile */}
-                <div className="flex items-center gap-3 lg:border-b lg:border-slate-100 lg:pb-6">
-                    <div className={`p-1.5 lg:p-2 rounded-lg ${currentTheme.bg} ${currentTheme.accent}`}>
-                        <Gamepad2 className="w-5 h-5 lg:w-6 lg:h-6" />
-                    </div>
-                    <div className="text-left py-1 lg:py-0">
-                        <h2 className="font-bold text-lg lg:text-2xl text-slate-900 leading-none tracking-tight">Ditto!</h2>
-                    </div>
-                </div>
-
-                {/* Stats Panel - Horizontal row on mobile, Stack on Desktop */}
-                <div className="flex-1 flex gap-2 lg:grid lg:grid-cols-1 lg:gap-3">
-                    {/* Live Counter */}
-                    <div className="flex-1 bg-slate-50 p-2 lg:p-4 rounded-xl border border-slate-100 flex flex-col items-center justify-center">
-                        <span className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5 lg:mb-1">
-                            {gameMode === 'time-attack' ? 'Time Remaining' : (currentTheme.vocabulary ? currentTheme.vocabulary.moves : 'Moves')}
+            {/* Stats + Peek grouped right */}
+            <div className="flex-1 flex items-center justify-end gap-2">
+                {/* Live counter: moves, or remaining time in time-attack */}
+                <div className={pill}>
+                    {isTimeAttack
+                        ? <Timer className="w-4 h-4 text-slate-400" />
+                        : <LayoutGrid className="w-4 h-4 text-slate-400" />}
+                    <div className="relative inline-flex items-baseline">
+                        <span className={`${pillValue} ${isTimeAttack && time < 10 ? 'text-red-500 animate-pulse' : 'text-slate-900'}`}>
+                            {isTimeAttack ? formatTime(time) : moves}
                         </span>
-                        <div className="relative inline-flex items-center justify-center">
-                            <div className={`text-xl lg:text-3xl font-medium leading-tight ${gameMode === 'time-attack' && time < 10 ? 'text-red-500 animate-pulse' : 'text-slate-900'}`}>
-                                {gameMode === 'time-attack' ? formatTime(time) : moves}
-                            </div>
-                            <AnimatePresence>
-                                {showBonus && gameMode === 'time-attack' && (
-                                    <motion.div
-                                        initial={{ opacity: 0, x: 0, y: 0, scale: 0.5 }}
-                                        animate={{ opacity: 1, x: 20, y: -10, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.5 }}
-                                        className="absolute left-full ml-1 font-bold text-green-500 text-sm lg:text-base whitespace-nowrap drop-shadow-sm pointer-events-none"
-                                    >
-                                        +5s
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                        {/* Secondary Stat (Time in Standard) */}
-                        {gameMode !== 'time-attack' && (
-                            <div className="text-xs text-slate-400 mt-1">
-                                {formatTime(time)}
-                            </div>
-                        )}
+                        <AnimatePresence>
+                            {showBonus && isTimeAttack && (
+                                <motion.div
+                                    initial={{ opacity: 0, x: 0, y: 0, scale: 0.5 }}
+                                    animate={{ opacity: 1, x: 16, y: -12, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.5 }}
+                                    className="absolute left-full ml-1 font-bold text-green-500 text-xs whitespace-nowrap drop-shadow-sm pointer-events-none"
+                                >
+                                    +5s
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
-
-                    {/* Best Score */}
-                    <div className="flex-1 bg-slate-50 p-2 lg:p-4 rounded-xl border border-slate-100 flex flex-col items-center justify-center">
-                        <span className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5 lg:mb-1">
-                            Best
-                        </span>
-                        <div className="text-xl lg:text-3xl font-medium leading-tight text-slate-900">
-                            {(() => {
-                                const score = highScores[`${difficulty}-${gameMode}`];
-                                if (!score && score !== 0) return '-';
-
-                                // Legacy (Number)
-                                if (typeof score === 'number') {
-                                    if (gameMode === 'time-attack') return formatTime(score);
-                                    return `${score}`; // Just moves
-                                }
-
-                                // Object { moves, time }
-                                if (typeof score === 'object') {
-                                    if (gameMode === 'time-attack') return formatTime(score.time);
-                                    // Standard: Show moves (primary for standard)
-                                    // If we want to show time too, we might need more space or a tooltip,
-                                    // but for this small box, just "Best Moves" is standards-compliant or specifically what fits.
-                                    // Let's formatting it like "12 (0:45)" if it fits, or just 12. 
-                                    // The design has limited space. Let's try Moves first.
-                                    return score.moves;
-                                }
-                                return '-';
-                            })()}
-                        </div>
-                    </div>
+                    <span className="sr-only">{liveLabel}</span>
                 </div>
 
-                {/* Action Buttons - Compact on mobile */}
-                <div className="flex lg:flex-col gap-2 lg:gap-3 lg:pt-2">
-                    <Button
-                        onClick={onPeek}
-                        disabled={peekUsed}
-                        className={`p-3 lg:w-full lg:py-6 text-sm lg:text-base ${peekUsed ? 'opacity-50 cursor-not-allowed bg-slate-100 text-slate-400' : 'bg-amber-400 hover:bg-amber-500 text-amber-950'} border-0 shadow-md`}
-                    >
-                        {peekUsed ? <Lock className="w-5 h-5 lg:mr-2" /> : <Eye className="w-5 h-5 lg:mr-2" />}
-                        <span className="hidden lg:inline">{peekUsed ? 'Peek Used' : 'Peek Board'}</span>
-                    </Button>
+                {/* Elapsed time alongside moves in standard mode */}
+                {!isTimeAttack && (
+                    <div className={pill}>
+                        <Timer className="w-4 h-4 text-slate-400" />
+                        <span className={`${pillValue} text-slate-900`}>{formatTime(time)}</span>
+                        <span className="sr-only">Elapsed</span>
+                    </div>
+                )}
 
-                    <Button onClick={onMenu} variant="outline" className="p-3 lg:w-full lg:py-4 bg-transparent border-2 border-slate-200 hover:bg-slate-50 text-slate-600">
-                        <ChevronRight className="w-4 h-4 rotate-180 lg:mr-2" />
-                        <span className="hidden lg:inline">Menu</span>
-                    </Button>
+                <div className={pill}>
+                    <Trophy className="w-4 h-4 text-slate-400" />
+                    <span className={`${pillValue} text-slate-900`}>{bestValue}</span>
+                    <span className="sr-only">Best</span>
                 </div>
-            </Card>
+
+                <button
+                    onClick={onPeek}
+                    disabled={peekUsed}
+                    title={peekUsed ? 'Peek used' : 'Peek board'}
+                    className={`shrink-0 grid place-items-center w-10 h-10 rounded-full shadow-sm ring-1 ring-slate-900/5 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 ${peekUsed ? 'cursor-not-allowed bg-white/60 text-slate-300' : 'bg-amber-400 text-amber-950 hover:bg-amber-500'}`}
+                >
+                    {peekUsed ? <Lock className="w-4 h-4" /> : <Eye className="w-5 h-5" />}
+                    <span className="sr-only">{peekUsed ? 'Peek used' : 'Peek board'}</span>
+                </button>
+            </div>
         </div>
     );
 };
