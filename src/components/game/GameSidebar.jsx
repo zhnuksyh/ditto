@@ -129,13 +129,6 @@ const GameSidebar = ({
                     </Button>
                 </div>
             </Card>
-
-            {/* Tips Section (Hidden on Mobile) */}
-            <div className="hidden lg:block text-center p-4">
-                <p className="text-sm text-white/50 font-medium">
-                    Pro Tip: Matching consecutive pairs increases your combo multiplier!
-                </p>
-            </div>
         </div>
     );
 };
