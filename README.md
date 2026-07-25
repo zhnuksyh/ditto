@@ -31,13 +31,26 @@ Choose your atmosphere. Each theme comes with unique colors, icons, background a
 - **Christmas**: Festive holiday spirit with gentle snowfall. Moves are "Wishes".
 
 ### 🏆 Difficulty Levels
-Challenge yourself with increasing complexity:
-- **Easy**: 12 cards (6 pairs) - 45s timer
-- **Medium**: 18 cards (9 pairs) - 70s timer
-- **Hard**: 24 cards (12 pairs) - 90s timer
+Challenge yourself with increasing complexity. Every level uses the same card
+size — only the number of rows grows:
+- **Easy**: 12 cards (6 pairs) - 6×2 grid - 45s timer
+- **Medium**: 18 cards (9 pairs) - 6×3 grid - 70s timer
+- **Hard**: 24 cards (12 pairs) - 6×4 grid - 90s timer
+
+On **Hard**, every card is assigned a random color so you can't match by color
+alone. Mobile drops to a 3-column layout at every difficulty.
+
+### 🎯 Game Modes
+- **Standard**: The move counter climbs. Fewest moves wins, with elapsed time as
+  the tie-breaker.
+- **Time Attack**: The clock counts down and each match adds 5 seconds. Most time
+  remaining wins.
+
+### 🔍 Peek
+One free reveal of the whole board per game — use it wisely.
 
 ### 💾 Progress Tracking
-- Tracks your best score (lowest moves) for each difficulty level.
+- Tracks a personal best per difficulty **and** game mode.
 - Local storage persistence ensures your records are saved.
 
 ## 🛠️ Tech Stack
@@ -46,6 +59,8 @@ Challenge yourself with increasing complexity:
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
+- **Animation**: [Framer Motion](https://www.framer.com/motion/)
+- **Offline**: installable PWA via [vite-plugin-pwa](https://vite-pwa-org.netlify.app/)
 
 ## 🚀 Getting Started
 
