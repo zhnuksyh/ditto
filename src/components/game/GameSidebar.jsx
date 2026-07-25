@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, Lock, ArrowLeft, Timer, LayoutGrid, Trophy } from 'lucide-react';
+import { Eye, Lock, ArrowLeft, Timer, RotateCw, Trophy } from 'lucide-react';
 
 const GameSidebar = ({
     currentTheme,
@@ -70,7 +70,7 @@ const GameSidebar = ({
                 <div className={pill}>
                     {isTimeAttack
                         ? <Timer className="w-4 h-4 text-slate-400" />
-                        : <LayoutGrid className="w-4 h-4 text-slate-400" />}
+                        : <RotateCw className="w-4 h-4 text-slate-400" />}
                     <div className="relative inline-flex items-baseline">
                         <span className={`${pillValue} ${isTimeAttack && time < 10 ? 'text-red-500 animate-pulse' : 'text-slate-900'}`}>
                             {isTimeAttack ? formatTime(time) : moves}
