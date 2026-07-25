@@ -2,21 +2,28 @@ import React from 'react';
 import { Gamepad2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const CardGrid = ({ cards, flipped, matched, currentTheme, currentDiff, onCardClick }) => {
-    // Dynamic max-width to keep card sizes consistent across difficulties
-    // Mobile: Always max-w-md (3 cols)
-    // Desktop: Scales with cols
-    const maxWidthClass = currentDiff.cols === 6 ? 'lg:max-w-4xl' :
-        currentDiff.cols === 4 ? 'lg:max-w-xl' : 'max-w-md';
+// Static maps so Tailwind's scanner can see every class name it must generate.
+// Mobile is always 3 columns; these apply from `lg` up.
+const GRID_COLS = {
+    3: 'lg:grid-cols-3',
+    4: 'lg:grid-cols-4',
+    6: 'lg:grid-cols-6',
+};
 
-    // Grid columns:
-    // Mobile: Fixed 3 columns (grid-cols-3)
-    // Desktop: Dynamic based on difficulty (lg:grid-cols-X)
-    const gridColsClass = currentDiff.cols === 6 ? 'lg:grid-cols-6' :
-        currentDiff.cols === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
+const MAX_WIDTH = {
+    3: 'lg:max-w-md',
+    4: 'lg:max-w-xl',
+    6: 'lg:max-w-4xl',
+};
+
+const CardGrid = ({ cards, flipped, matched, currentTheme, currentDiff, onCardClick }) => {
+    // Desktop column count comes from the difficulty; width scales with it so
+    // cards stay the same size and only the number of rows changes.
+    const gridColsClass = GRID_COLS[currentDiff.cols] ?? GRID_COLS[6];
+    const maxWidthClass = MAX_WIDTH[currentDiff.cols] ?? MAX_WIDTH[6];
 
     return (
-        <div className="flex-1 w-full flex justify-center">
+        <div className="w-full flex items-center justify-center">
             <div
                 className={`grid grid-cols-3 ${gridColsClass} gap-4 w-full max-w-md ${maxWidthClass} mx-auto perspective-1000`}
             >
