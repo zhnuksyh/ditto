@@ -158,7 +158,7 @@ const MainMenu = ({
                                     <button
                                         key={key}
                                         onClick={() => setDifficulty(key)}
-                                        className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${difficulty === key
+                                        className={`flex-1 px-1 py-3 text-xs sm:text-sm font-bold rounded-lg transition-all whitespace-nowrap ${difficulty === key
                                             ? isDark ? "bg-slate-700 text-white shadow-sm" : "bg-white text-slate-900 shadow-sm"
                                             : isDark ? "text-slate-400 hover:text-slate-200" : "text-slate-500 hover:text-slate-700"
                                             }`}

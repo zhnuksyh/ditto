@@ -8,13 +8,16 @@ const GRID_COLS = {
     3: 'lg:grid-cols-3',
     4: 'lg:grid-cols-4',
     6: 'lg:grid-cols-6',
+    8: 'lg:grid-cols-8',
 };
 
 const MAX_WIDTH = {
     3: 'lg:max-w-md',
     4: 'lg:max-w-xl',
     6: 'lg:max-w-4xl',
+    8: 'lg:max-w-6xl',
 };
+
 
 const CardGrid = ({ cards, flipped, matched, currentTheme, currentDiff, onCardClick }) => {
     // Desktop column count comes from the difficulty; width scales with it so
@@ -25,12 +28,9 @@ const CardGrid = ({ cards, flipped, matched, currentTheme, currentDiff, onCardCl
     const maxWidthClass = MAX_WIDTH[currentDiff.cols] ?? MAX_WIDTH[6];
 
     return (
-        // Shrink-to-fit on desktop so the sidebar + grid pair centers as a unit
-        // instead of the grid claiming all leftover width. min-w-0 lets it shrink
-        // below its max-width on viewports too narrow for sidebar + full board.
-        <div className="w-full lg:w-auto lg:min-w-0 lg:flex-shrink flex items-center justify-center">
+        <div className="w-full flex items-center justify-center">
             <div
-                className={`grid grid-cols-3 ${gridColsClass} gap-4 w-full max-w-sm ${maxWidthClass} lg:w-[56rem] mx-auto perspective-1000`}
+                className={`grid grid-cols-3 ${gridColsClass} gap-4 w-full max-w-sm ${maxWidthClass} mx-auto perspective-1000`}
             >
                 {cards.map((card) => {
                     const isFlipped = flipped.includes(card.id) || matched.includes(card.id);
