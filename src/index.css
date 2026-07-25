@@ -9,6 +9,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* The font itself is loaded via <link> in index.html. */
+.font-game {
+    font-family: 'Fredoka', sans-serif;
+}
+
 /* Animations */
 @keyframes float {
 
