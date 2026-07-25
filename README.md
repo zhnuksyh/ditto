@@ -7,14 +7,7 @@ A beautiful, thematic memory matching game built with React, Vite, and Tailwind 
 
 | 📅 Last Updated | 🏷️ Version | 🔨 Latest Commit |
 | :--- | :--- | :--- |
-| Sat, 25 Jul 2026 06:26:16 GMT | v0.1.0 | [`1de2ca0`](https://github.com/zhnuksyh/ditto/commit/1de2ca0) - fix(layout): center the game board on screen
-
-The board sat high and slightly left: the outer wrapper used items-start
-with pt-4/lg:pt-12, and the sidebar's lg:sticky lg:top-8 anchored it 2rem
-from the viewport top, which fought vertical centering.
-
-Centers both axes on desktop and drops the now-unnecessary sticky
-positioning. Mobile still stacks sidebar above board. |
+| Sat, 25 Jul 2026 06:57:31 GMT | v0.1.0 | [`ed368d1`](https://github.com/zhnuksyh/ditto/commit/ed368d1) - docs: correct feature descriptions in readme |
 
 <!-- END_SECTION:status -->
 

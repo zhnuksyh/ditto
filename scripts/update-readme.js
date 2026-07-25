@@ -20,8 +20,12 @@ let lastCommitMsg = 'Unknown';
 let lastCommitHash = 'Unknown';
 
 try {
-    lastCommitMsg = execSync('git log -1 --pretty=%B').toString().trim();
+    // %s = subject only. %B would include the body, and a multi-line message
+    // breaks out of the markdown table cell.
+    lastCommitMsg = execSync('git log -1 --pretty=%s').toString().trim();
     lastCommitHash = execSync('git log -1 --pretty=%h').toString().trim();
+    // A literal pipe would end the table cell early.
+    lastCommitMsg = lastCommitMsg.replace(/\|/g, '\\|');
 } catch (e) {
     console.warn('Could not get git info', e);
 }
