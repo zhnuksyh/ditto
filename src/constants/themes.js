@@ -1,9 +1,13 @@
 import {
-    Ghost, Heart, Star, Moon, Sun, Cloud, Snowflake, Zap,
-    Leaf, Flower, Trees, Mountain, Droplets, Wind,
-    Cpu, Disc, Radio, Wifi, Battery, Monitor, Gamepad2,
-    Gift, Bell,
-    Rocket, Globe, Bird, Fish, Tent, Sunset, Music, Flame, ShoppingBag, Calendar // Added more icons
+    // Shared
+    Heart, Star, Moon, Sun, Cloud, Snowflake, Zap, Flame, Music,
+    // Cosmic
+    Ghost, Rocket, Globe, Radio, Cpu, Orbit, Satellite, Atom, Radar,
+    // Forest
+    Leaf, Flower, Trees, Mountain, Droplets, Wind, Bird, Fish, Tent, Sunset,
+    Squirrel, Rabbit, Clover, Sprout,
+    // Christmas
+    Gift, Bell, CandyCane, Cookie, PartyPopper, Church, Crown, Cake
 } from 'lucide-react';
 
 export const THEMES = {
@@ -17,7 +21,7 @@ export const THEMES = {
         matchClass: "opacity-50 grayscale contrast-125",
         accent: "text-indigo-300",
         button: "bg-indigo-500 hover:bg-indigo-600 text-white",
-        icons: [Ghost, Moon, Star, Sun, Cloud, Snowflake, Zap, Heart, Rocket, Globe, Radio, Cpu],
+        icons: [Ghost, Moon, Star, Sun, Cloud, Snowflake, Zap, Heart, Rocket, Globe, Radio, Cpu, Orbit, Satellite, Atom, Radar],
         colors: ["text-indigo-300", "text-purple-300", "text-blue-300", "text-sky-300"],
         vocabulary: {
             moves: "Warps",
@@ -37,7 +41,7 @@ export const THEMES = {
         matchClass: "opacity-60 saturate-50",
         accent: "text-emerald-600",
         button: "bg-emerald-500 hover:bg-emerald-600 text-white",
-        icons: [Leaf, Flower, Trees, Mountain, Droplets, Wind, Sun, Cloud, Bird, Fish, Tent, Sunset],
+        icons: [Leaf, Flower, Trees, Mountain, Droplets, Wind, Sun, Cloud, Bird, Fish, Tent, Sunset, Squirrel, Rabbit, Clover, Sprout],
         colors: ["text-emerald-600", "text-green-600", "text-lime-600", "text-teal-600"],
         vocabulary: {
             moves: "Steps",
@@ -58,7 +62,7 @@ export const THEMES = {
         matchClass: "opacity-75 brightness-110",
         accent: "text-red-600",
         button: "bg-red-600 hover:bg-red-700 text-white shadow-lg",
-        icons: [Snowflake, Gift, Bell, Trees, Star, Heart, Moon, Cloud, Music, Flame, ShoppingBag, Calendar],
+        icons: [Snowflake, Gift, Bell, Trees, Star, Heart, Moon, Cloud, Music, Flame, CandyCane, Cookie, PartyPopper, Church, Crown, Cake],
         colors: ["text-red-600", "text-green-600", "text-yellow-500", "text-blue-500"],
         vocabulary: {
             moves: "Wishes",

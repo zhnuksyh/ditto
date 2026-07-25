@@ -16,32 +16,19 @@ const useGameLogic = (currentTheme, currentDiff, gameMode, saveScoreCallback) =>
         // 1. Slice the icons needed for current difficulty
         const selectedIcons = currentTheme.icons.slice(0, currentDiff.pairs);
 
-        // 2. Create pairs (doubling the array)
-        const deck = [...selectedIcons, ...selectedIcons]
+        // 2. Create pairs. Map to indices before doubling so a repeated icon
+        //    component in a theme can never collapse two pairs into one iconId.
+        const deck = selectedIcons
+            .flatMap((icon, iconId) => [{ icon, iconId }, { icon, iconId }])
             .sort(() => Math.random() - 0.5) // 3. Shuffle
-            .map((icon, index) => {
-                // Determine color based on difficulty
-                // Easy/Medium: Both cards in a pair share the same color
-                // Hard: Every card gets a random color (making it harder to match by color)
-                let colorClass;
-
-                if (currentDiff.label === 'Hard') {
-                    // Random color for every card instance
-                    colorClass = currentTheme.colors[Math.floor(Math.random() * currentTheme.colors.length)];
-                } else {
-                    // Consistent color for the pair (based on icon index)
-                    // We need to find the index of this icon in the original selectedIcons array to ensure consistency
-                    const iconIndex = selectedIcons.indexOf(icon);
-                    colorClass = currentTheme.colors[iconIndex % currentTheme.colors.length];
-                }
-
-                return {
-                    id: index, // Unique ID for React keys and tracking
-                    iconId: selectedIcons.indexOf(icon), // ID for matching logic (0-7)
-                    Icon: icon, // The Lucide component
-                    color: colorClass // Visual style
-                };
-            });
+            .map(({ icon, iconId }, index) => ({
+                id: index,   // Unique ID for React keys and tracking
+                iconId,      // ID for matching logic
+                Icon: icon,  // The Lucide component
+                // Both cards in a pair always share a color, at every difficulty.
+                // Matching icons never differ in color, so color is never a red herring.
+                color: currentTheme.colors[iconId % currentTheme.colors.length]
+            }));
 
         // 4. Reset Game State
         setCards(deck);
