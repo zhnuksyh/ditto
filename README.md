@@ -7,7 +7,7 @@ A beautiful, thematic memory matching game built with React, Vite, and Tailwind 
 
 | 📅 Last Updated | 🏷️ Version | 🔨 Latest Commit |
 | :--- | :--- | :--- |
-| Sat, 25 Jul 2026 08:15:25 GMT | v0.1.0 | [`6456a31`](https://github.com/zhnuksyh/ditto/commit/6456a31) - feat(difficulty): shift the curve down one step |
+| Sun, 26 Jul 2026 18:06:25 GMT | v0.1.0 | [`09b1a34`](https://github.com/zhnuksyh/ditto/commit/09b1a34) - feat(icon): replace app icon with a green Lucide copy mark |
 
 <!-- END_SECTION:status -->
 
