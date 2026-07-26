@@ -1,14 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
-  <!-- Purple Rounded Background -->
-  <rect width="64" height="64" rx="16" fill="#8b5cf6" />
-  
-  <!-- White Gamepad Icon (Centered and Scaled) -->
-  <g transform="translate(12, 12) scale(1.66)">
-    <path d="M6 12h4m-2-2v4m7-1h.01m2.99-2h.01M2 6h20v12H2z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="2" y="6" width="20" height="12" rx="2" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="6" x2="10" y1="12" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="8" x2="8" y1="10" y2="14" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="15" x2="15.01" y1="13" y2="13" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="18" x2="18.01" y1="11" y2="11" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Emerald rounded background (emerald-600, the Forest theme accent) -->
+  <rect width="64" height="64" rx="14" fill="#059669" />
+
+  <!-- Lucide "copy" icon: two offset squares = a matched pair.
+       Source viewBox is 24x24; scale 1.75 -> 42px, centered with an 11px offset. -->
+  <g transform="translate(11, 11) scale(1.75)"
+     stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
   </g>
 </svg>

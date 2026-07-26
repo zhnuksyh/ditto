@@ -12,7 +12,7 @@ export default defineConfig({
             manifest: {
                 name: 'Ditto! Memory Game',
                 short_name: 'Ditto',
-                theme_color: '#ffffff',
+                theme_color: '#059669',
                 display: 'standalone',
                 icons: [
                     {
